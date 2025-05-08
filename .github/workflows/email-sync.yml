@@ -13,6 +13,7 @@ jobs:
 
     env:
       TABLE_NAME: SaturdayPaperEmailSubs
+      AWS_REGIONN: us-east-1
 
     steps:
       - name: Checkout code
