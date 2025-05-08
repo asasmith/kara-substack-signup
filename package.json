@@ -8,7 +8,7 @@
     "format:check": "prettier --check src",
     "format:write": "prettier --write src",
     "tsc:check": "tsc --noEmit",
-    "build": "tsc",
+    "build": "tsup src/index.ts --format esm --out-dir dist --clean",
     "clean": "rm -rf dist",
     "start": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -32,6 +32,7 @@
     "@typescript-eslint/parser": "^8.32.0",
     "eslint": "^9.26.0",
     "prettier": "^3.5.3",
+    "tsup": "^8.4.0",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.32.0"
   },
