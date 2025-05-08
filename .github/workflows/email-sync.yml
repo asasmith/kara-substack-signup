@@ -23,7 +23,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: arn:aws:iam::342811584933:role/SubstackEmailSyncCIRole
-          role-session-name: email-sync-ci
+          role-session-name: ghactions
           aws-region: us-east-1
 
       - name: Set up node
