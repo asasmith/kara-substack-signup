@@ -1,0 +1,38 @@
+{
+  "name": "kara-substack-signup-poc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint src",
+    "format:check": "prettier --check src",
+    "format:write": "prettier --write src",
+    "tsc:check": "tsc --noEmit",
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "start": "node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.804.0",
+    "@aws-sdk/util-dynamodb": "^3.804.0",
+    "dotenv": "^16.5.0",
+    "install": "^0.13.0",
+    "npm": "^11.3.0",
+    "puppeteer": "^24.8.1",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.26.0",
+    "@typescript-eslint/eslint-plugin": "^8.32.0",
+    "@typescript-eslint/parser": "^8.32.0",
+    "eslint": "^9.26.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.32.0"
+  }
+}

@@ -1,0 +1,33 @@
+name: Email sync
+
+on:
+    schedule:
+        # Runs every day at 12:00 UTC
+        - cron: '0 12 * * *'
+
+    workflow_dispatch:
+
+jobs:
+    sync-emails:
+        runs-on: ubuntu-lates
+
+        env:
+            TABLE_NAME: SaturdayPaperEmailSubs
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Set up node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Build
+              run: npm run build
+
+            - name: Start
+              run: npm run start
