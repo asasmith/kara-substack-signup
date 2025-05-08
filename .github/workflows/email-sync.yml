@@ -24,7 +24,7 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::342811584933:role/SubstackEmailSyncCIRole
           role-session-name: email-sync-ci
-          region: us-east-1
+          aws-region: us-east-1
 
       - name: Set up node
         uses: actions/setup-node@v4
