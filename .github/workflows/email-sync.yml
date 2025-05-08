@@ -9,7 +9,7 @@ on:
 
 jobs:
     sync-emails:
-        runs-on: ubuntu-lates
+        runs-on: ubuntu-latest
 
         env:
             TABLE_NAME: SaturdayPaperEmailSubs
