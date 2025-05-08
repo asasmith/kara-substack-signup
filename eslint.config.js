@@ -13,6 +13,13 @@ export default tseslint.config(
                 project: './tsconfig.json',
                 sourceType: 'module',
             },
+            globals: {
+                console: 'readonly',
+                process: 'readonly',
+            },
+        },
+        plugins: {
+            '@typescript-eslint': tseslint.plugin,
         },
         rules: {
             ...js.configs.recommended.rules,
