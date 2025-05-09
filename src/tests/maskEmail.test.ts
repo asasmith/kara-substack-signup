@@ -1,4 +1,4 @@
-import { maskEmail } from '../src/maskEmail';
+import { maskEmail } from '../maskEmail';
 
 test('should mask email', function () {
     const maskedEmail = maskEmail('test@test.com');

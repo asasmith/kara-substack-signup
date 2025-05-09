@@ -1,4 +1,4 @@
-import { getTableName } from '../src/getTableName';
+import { getTableName } from '../getTableName';
 
 describe('getTableName', () => {
     const originalEnv = process.env;
