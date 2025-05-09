@@ -11,7 +11,7 @@
     "build": "tsup src/index.ts --format esm --out-dir dist --clean",
     "clean": "rm -rf dist",
     "start": "node dist/index.js",
-    "test": "jest --watchAll"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
