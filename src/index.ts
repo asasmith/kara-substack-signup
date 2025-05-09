@@ -1,10 +1,10 @@
 import { fetchUnsubscribedEmails } from './fetchEmails';
-// import { emailSignup } from './emailSignup';
+import { emailSignup } from './emailSignup';
 
 (async () => {
     const emails = await fetchUnsubscribedEmails();
 
-    console.log(emails);
+    for (const email of emails) {
+        await emailSignup(email);
+    }
 })();
-
-// emailSignup(test);
