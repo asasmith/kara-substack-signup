@@ -49,7 +49,7 @@ export async function emailSignup(email: string): Promise<void> {
 
     console.log('Full response from Substack:', {
         ...responseJson,
-        email,
+        email: maskEmail(responseJson.email),
     });
 
     console.log(`Submitted subscription for: ${maskEmail(responseJson.email)}`);
