@@ -7,6 +7,10 @@ on:
 
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   sync-emails:
     runs-on: ubuntu-latest
@@ -23,7 +27,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: arn:aws:iam::342811584933:role/SubstackEmailSyncCIRole
-          role-session-name: ghactions 
+          role-session-name: substack-email-sync-role
           aws-region: us-east-1
 
       - name: Set up node
