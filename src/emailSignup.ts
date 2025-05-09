@@ -5,7 +5,7 @@ import { markAsSubscribed } from './markAsSubscribed';
 
 puppeteer.use(StealthPlugin());
 
-export async function emailSignup(email: string): Promise<void> {
+export async function emailSignup(signUpEmail: string): Promise<void> {
     console.log('Starting Puppeteer script');
 
     const browser = await puppeteer.launch({
@@ -34,7 +34,7 @@ export async function emailSignup(email: string): Promise<void> {
         return;
     }
 
-    await emailInput.type(email, { delay: 50 });
+    await emailInput.type(signUpEmail, { delay: 50 });
 
     const substackResponse = page.waitForResponse(
         (res) =>
@@ -45,14 +45,15 @@ export async function emailSignup(email: string): Promise<void> {
     await Promise.all([submitButton.click(), substackResponse]);
 
     const response = await substackResponse;
-    const responseJson = await response.json();
+    const { email, didSignup, requires_confirmation } = await response.json();
 
     console.log('Full response from Substack:', {
-        ...responseJson,
-        email: maskEmail(responseJson.email),
+        email: maskEmail(email),
+        didSignup,
+        requires_confirmation,
     });
 
-    console.log(`Submitted subscription for: ${maskEmail(responseJson.email)}`);
+    console.log(`Submitted subscription for: ${maskEmail(email)}`);
 
     await markAsSubscribed(email);
 
