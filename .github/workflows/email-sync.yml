@@ -43,3 +43,5 @@ jobs:
 
       - name: Start
         run: npm run start
+        with:
+          retention-days: 7
