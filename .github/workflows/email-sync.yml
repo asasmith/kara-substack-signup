@@ -14,7 +14,6 @@ permissions:
 jobs:
   sync-emails:
     runs-on: ubuntu-latest
-    retention-days: 7
 
     env:
       TABLE_NAME: SaturdayPaperEmailSubs
