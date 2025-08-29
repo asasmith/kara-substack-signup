@@ -12,13 +12,14 @@ export async function emailSignup(signUpEmail: string): Promise<void> {
         headless: true,
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
-    const page = await browser.newPage();
+    const ctx = await browser.createBrowserContext();
+    const page = await ctx.newPage();
     await page.setUserAgent(
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
     );
     await page.setViewport({ width: 1280, height: 800 });
     await page.goto('https://saturday-paper.kararedman.com/', {
-        waitUntil: 'networkidle2',
+        waitUntil: 'domcontentloaded',
     });
 
     const emailInput = await page.$(
@@ -35,17 +36,24 @@ export async function emailSignup(signUpEmail: string): Promise<void> {
     }
 
     await emailInput.type(signUpEmail, { delay: 50 });
+    await submitButton.click();
 
-    const substackResponse = page.waitForResponse(
+    page.on('request', (req) => {
+        console.log('➡️', req.method(), req.url());
+    });
+
+    page.on('response', (res) => {
+        console.log('⬅️', res.status(), res.url());
+    });
+
+    const substackResponse = await page.waitForResponse(
         (res) =>
             res.url().includes('/api/v1/free') &&
             res.request().method() === 'POST'
     );
 
-    await Promise.all([submitButton.click(), substackResponse]);
-
-    const response = await substackResponse;
-    const { email, didSignup, requires_confirmation } = await response.json();
+    const { email, didSignup, requires_confirmation } =
+        await substackResponse.json();
 
     console.log('Full response from Substack:', {
         email: maskEmail(email),

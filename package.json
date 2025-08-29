@@ -23,6 +23,7 @@
     "install": "^0.13.0",
     "npm": "^11.3.0",
     "puppeteer": "^24.8.1",
+    "puppeteer-core": "^24.17.1",
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2"
   },
