@@ -30,7 +30,10 @@ export async function fetchUnsubscribedEmails(): Promise<string[]> {
 
         return emails;
     } catch (error) {
-        console.error(error);
-        return [];
+        console.error(
+            'Failed to scan DynamoDB for unsubscribed emails.',
+            error
+        );
+        throw error;
     }
 }
