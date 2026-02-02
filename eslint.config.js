@@ -17,6 +17,9 @@ export default tseslint.config(
             globals: {
                 console: 'readonly',
                 process: 'readonly',
+                fetch: 'readonly',
+                URL: 'readonly',
+                URLSearchParams: 'readonly',
             },
         },
         plugins: {
@@ -48,5 +51,5 @@ export default tseslint.config(
         rules: {
             ...jest.configs.recommended.rules,
         },
-    },
+    }
 );
