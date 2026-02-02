@@ -8,6 +8,9 @@ puppeteer.use(StealthPlugin());
 export async function emailSignup(signUpEmail: string): Promise<void> {
     console.log('Starting Puppeteer script');
 
+    const substackUrl =
+        process.env.SUBSTACK_URL ?? 'https://kararedman.substack.com/subscribe';
+
     const browser = await puppeteer.launch({
         headless: true,
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -18,9 +21,14 @@ export async function emailSignup(signUpEmail: string): Promise<void> {
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
     );
     await page.setViewport({ width: 1280, height: 800 });
-    await page.goto('https://saturday-paper.kararedman.com/', {
+    console.log(`Navigating to Substack signup page: ${substackUrl}`);
+    await page.goto(substackUrl, {
         waitUntil: 'domcontentloaded',
     });
+
+    await page.waitForSelector(
+        'form[action="/api/v1/free?nojs=true"] input[type="email"]'
+    );
 
     const emailInput = await page.$(
         'form[action="/api/v1/free?nojs=true"] input[type="email"]'
@@ -36,6 +44,11 @@ export async function emailSignup(signUpEmail: string): Promise<void> {
     }
 
     await emailInput.type(signUpEmail, { delay: 50 });
+    await page.waitForFunction(
+        'document.querySelector(arguments[0])?.disabled === false',
+        {},
+        'form[action="/api/v1/free?nojs=true"] button[type="submit"]'
+    );
     await submitButton.click();
 
     page.on('request', (req) => {
@@ -60,6 +73,12 @@ export async function emailSignup(signUpEmail: string): Promise<void> {
         didSignup,
         requires_confirmation,
     });
+
+    if (didSignup) {
+        console.log(`Signup succeeded for: ${maskEmail(email)}`);
+    } else {
+        console.warn(`Signup did not complete for: ${maskEmail(email)}`);
+    }
 
     console.log(`Submitted subscription for: ${maskEmail(email)}`);
 
